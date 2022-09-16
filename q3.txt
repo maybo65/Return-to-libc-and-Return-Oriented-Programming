@@ -1,0 +1,7 @@
+first, I used the find_all_formats function, with mov [{0}], {1} in order to find a gadget that is going to be sutible. after that, I found mov [eax], edx is in the file. so, I just needed to look for pop eax and pop edx. I found them to and could write my code. I got the addresses of those gadget using the find function. I also got the auth address using IDA. I also got the return from the function (this will allow us to print victory). finally, built the password: 
+*135 bytes of 'a'- this is only for padding* + *"pop eax" gadget address* +*auth address* + *"pop edx" gadget address* + *0x1* + "mov [eax], edx" gadget address* + "the return address to the rest of the code, after we alter auth". 
+this will cause:
+1. eax < address of auth
+2. edx < 0x1
+3. mov[eax], edx
+4. return back, outside of the function to the original return address we overrode, and call puts, after auth=1, which will cause printing victory as needed. 

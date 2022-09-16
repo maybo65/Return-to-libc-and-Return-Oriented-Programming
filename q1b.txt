@@ -1,0 +1,12 @@
+First, I needed to find the address of system(). Using the core file I got from crashing the program, I opened gdb and did:
+print &system
+this gave me:
+$2 = (int (*)(const char *)) 0xb7b4f040 <__libc_system>
+and by that I got system address- 0xb7b4f040. (this way I also found the address of the exit function, that we will use to exit cleanly).
+Next, I needed to find an occurrence of "/bin/sh". to do this I first used info files cmd, which led me to find out that rhe .rodata section is between 0xb7c7c000 - 0xb7c9fb98. Then, I used
+the - find 0xb7c7c000, 0xb7c9fb98, "/bin/sh" command, and got: 0xb7c96338. this give us the address of the wanted string (we can verify that by running print (char*) 0xb7c96338).
+In addition, I found out that the return address of the function is in address 0xbfffe03c (by looking on the value of eip, and matching it to memory image. this means that the letters that caused the crash are QRRR. The first R is in distance of 8*(82-5)=136, meaning that there are 135 we need to fill if we want to exectly override the return address.
+Now, we can open a shell by locating the address of system right instead of the return address we are going to override, and locating the right arguments above (a pointer to the string, and a pointer to the pointer of the string). 
+so, we are going to build the following password:
+*135 bytes of 'a'- this is only for padding* + *system return address in LI* + *exit address* + *the address of \bin\sh* + "exit code- we will choose 0" 
+putting the address of the exit function will sure an exit clean, beacuse after returning from the system function, we are going to jump there.

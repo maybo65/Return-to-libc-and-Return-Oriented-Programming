@@ -1,0 +1,2 @@
+sending a really big password that even after the decode is going to cause a buffer overflow, and make the sudo program to crash. so, we are going to send:
+AAAAAAAABBBBBBBB....ZZZZZZZZ (every letter 8 times) in order to create the crash.
