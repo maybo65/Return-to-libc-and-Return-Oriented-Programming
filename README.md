@@ -62,8 +62,7 @@ so, we are going to build the following password:
  ## Plan attack
  So, instead of just putting the system address, we are going to put the address of exit() in the purple sloth. The exit function is getting exit code as a variable, and it will be in the blue section:
  
- ![image](https://user-images.githubusercontent.com/112778430/190857202-2871f4bd-24c3-434b-be25-4d11f57622ef.png)
- 
+![image](https://user-images.githubusercontent.com/112778430/190867685-168e0adc-13c4-4868-8e60-a5eeb4919783.png) 
 *notice that we couldn't do that with other function beside exit. This because that the next function we would have put there, would have tried to take it's return address from the green sloth, which is the 1st variable to system, and that would have cause us to crash.*
 
 ## Attack Implementation
