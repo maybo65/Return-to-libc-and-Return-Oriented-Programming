@@ -1,4 +1,4 @@
-
+# Return to libc and Return Oriented Programming (ROP)
 ### Motivation (and some history)
 The buffer overflows attacks we exploited so far, rely on writing our code into the stack and execute it, but the ability to do so is pretty much not a realistic assumption. Today, almost all of the operation system implements various [protections on the executable space](https://en.wikipedia.org/wiki/Executable_space_protection), typically by marking the stack (and/or other areas of the memory) as non-executable. This prevented the classic buffer overflow attack we exploited so far.
 
